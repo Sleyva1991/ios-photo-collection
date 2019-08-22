@@ -10,13 +10,13 @@ import Foundation
 
 class ThemeHelper {
     
+    let themePreferencekey: String = ""
+
     init() {
         if themePreference == nil {
             setThemePreferenceToDark()
         }
     }
-    
-    let themePreferencekey: String = ""
     
     var themePreference: String? {
         let userDefaults = UserDefaults.standard
