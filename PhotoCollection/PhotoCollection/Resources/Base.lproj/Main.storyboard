@@ -10,6 +10,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="YDX-ft-XOv">
+            <objects>
+                <viewController id="7Y0-x1-WoY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mpx-pm-fYg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="91j-lH-m4n"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b6R-UI-Owf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-458" y="-814"/>
+        </scene>
         <!--Photos Collection View Controller-->
         <scene sceneID="oSh-lW-ez6">
             <objects>
@@ -66,6 +81,9 @@
                                     <constraint firstItem="r2O-Sr-3aN" firstAttribute="top" secondItem="SgP-xN-EpQ" secondAttribute="top" id="TFZ-gS-dWJ"/>
                                     <constraint firstItem="r2O-Sr-3aN" firstAttribute="leading" secondItem="SgP-xN-EpQ" secondAttribute="leading" id="ck3-xI-c9g"/>
                                 </constraints>
+                                <connections>
+                                    <segue destination="bL3-iJ-kWU" kind="show" identifier="CellSegue" id="0CE-XS-ns1"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -75,27 +93,71 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="nhm-jo-mlV">
                         <barButtonItem key="leftBarButtonItem" title="Select Theme" id="S5j-66-Iah"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="83P-oz-0FM"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="83P-oz-0FM">
+                            <connections>
+                                <segue destination="bL3-iJ-kWU" kind="show" identifier="AddSegue" id="fCu-rB-4E8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSQ-zQ-dOS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-457.97101449275368" y="-111.83035714285714"/>
         </scene>
-        <!--View Controller-->
+        <!--Photos Detail View Controller-->
         <scene sceneID="46E-9g-cCB">
             <objects>
-                <viewController id="bL3-iJ-kWU" sceneMemberID="viewController">
+                <viewController id="bL3-iJ-kWU" customClass="PhotosDetailViewController" customModule="PhotoCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dqa-hX-Oqn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mYO-YJ-2Vb">
+                                <rect key="frame" x="20" y="108" width="374" height="263"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="XvF-o6-4Gm">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="187"/>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLJ-1d-RLo">
+                                        <rect key="frame" x="0.0" y="195" width="374" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5t-5p-mGz">
+                                        <rect key="frame" x="0.0" y="233" width="374" height="30"/>
+                                        <state key="normal" title="Add Photo"/>
+                                        <connections>
+                                            <action selector="addPhoto:" destination="bL3-iJ-kWU" eventType="touchUpInside" id="5FS-Sa-F0g"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l3L-OW-ob0" firstAttribute="bottom" secondItem="mYO-YJ-2Vb" secondAttribute="bottom" constant="491" id="3xR-jO-hYc"/>
+                            <constraint firstItem="l3L-OW-ob0" firstAttribute="trailing" secondItem="mYO-YJ-2Vb" secondAttribute="trailing" constant="20" id="Bb4-95-LYt"/>
+                            <constraint firstItem="mYO-YJ-2Vb" firstAttribute="leading" secondItem="l3L-OW-ob0" secondAttribute="leading" constant="20" id="n7O-I1-a0T"/>
+                            <constraint firstItem="mYO-YJ-2Vb" firstAttribute="top" secondItem="l3L-OW-ob0" secondAttribute="top" constant="20" id="rZx-oK-xgI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="l3L-OW-ob0"/>
                     </view>
+                    <navigationItem key="navigationItem" id="OKI-HK-P1Q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="hcf-SE-N5d">
+                            <connections>
+                                <action selector="savePhoto:" destination="bL3-iJ-kWU" id="1mZ-jo-9DS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="SLJ-1d-RLo" id="R7c-vw-NYc"/>
+                        <outlet property="photoImageView" destination="XvF-o6-4Gm" id="Qgs-EP-ipt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vE-JM-yPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="-113"/>
+            <point key="canvasLocation" x="385.50724637681162" y="-113.16964285714285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cvB-Hs-7Cm">
@@ -116,4 +178,7 @@
             <point key="canvasLocation" x="-1368.1159420289855" y="-112.5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0CE-XS-ns1"/>
+    </inferredMetricsTieBreakers>
 </document>
