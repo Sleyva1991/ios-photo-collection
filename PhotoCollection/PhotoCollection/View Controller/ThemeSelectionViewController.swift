@@ -9,6 +9,8 @@
 import UIKit
 
 class ThemeSelectionViewController: UIViewController {
+    
+    var themeHelper: ThemeHelper?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +18,14 @@ class ThemeSelectionViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func selectDarkTheme(_ sender: Any) {
+        
+    }
+    
+    @IBAction func selectGreyTheme(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
