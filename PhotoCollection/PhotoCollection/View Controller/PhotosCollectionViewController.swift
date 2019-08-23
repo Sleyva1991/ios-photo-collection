@@ -14,11 +14,33 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setTheme()
+        collectionView.reloadData()
+    }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
+        if segue.identifier == "AddSegue" {
+            guard let addDetailVC = segue.destination as? PhotosDetailViewController else { return }
+            addDetailVC.photoController = photoController
+            addDetailVC.themeHelper = themeHelper
+            
+        } else if segue.identifier == "CellSegue" {
+            guard let DetailVC = segue.destination as? PhotosDetailViewController,
+                let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+            let photo = photoController.photos[indexPath.item]
+            DetailVC.photoController = photoController
+            DetailVC.themeHelper = themeHelper
+            DetailVC.photo = photo
+    
+        } else if segue.identifier == "ThemeSelect" {
+            guard let selectionVC = segue.destination as? ThemeSelectionViewController else { return }
+            selectionVC.themeHelper = themeHelper
+        }
     }
 
     // MARK: UICollectionViewDataSource

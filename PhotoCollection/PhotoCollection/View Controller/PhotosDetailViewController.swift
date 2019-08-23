@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotosDetailViewController: UIViewController {
+class PhotosDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var photoController: PhotoController?
     var photo: Photo?
@@ -19,26 +19,50 @@ class PhotosDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        updateViews()
+    }
+    
+    func setTheme() {
+        guard let themePreference = themeHelper?.themePreference else { return }
+        if themePreference == "Dark" {
+            view.backgroundColor = .darkGray
+        } else if themePreference == "Grey" {
+            view.backgroundColor = .gray
+        }
+    }
+    
+    func updateViews() {
+        setTheme()
+        guard let photo = photo else { return }
+        photoImageView.image = UIImage(data: photo.imageData)
+        nameTextField.text = photo.title
+       
     }
     
     @IBAction func addPhoto(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+        imagePicker.delegate = self
         
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        photoImageView.image = pickedImage
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func savePhoto(_ sender: Any) {
+        guard let title = nameTextField.text, !title.isEmpty,
+        let image = photoImageView.image,
+        let imageData = image.pngData() else { return }
+        if let photo = photo {
+            photoController?.update(photo: photo, imageData: imageData, title: title)
+        } else {
+            photoController?.create(imageData: imageData, title: title)
+        }
+        navigationController?.popViewController(animated: true)
         
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
